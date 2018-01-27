@@ -1,0 +1,33 @@
+{
+  "name": "grunt-vizoo",
+  "description": "Adiciona o script do Vizoo e seus plugins inline em documento HTML",
+  "version": "1.0.0",
+  "homepage": "https://vizoo.online",
+  "author": {
+    "name": "Wallace Rio",
+    "email": "wallrio@gmail.com",
+    "url": "http://wallrio.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vizoo-framework/grunt-vizoo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vizoo-framework/grunt-vizoo/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/vizoo-framework/grunt-vizoo/blob/master/LICENSE"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5"
+  },
+  "keywords": [
+    "vizoo, framework, vizoo-framework, inline"
+  ]
+}

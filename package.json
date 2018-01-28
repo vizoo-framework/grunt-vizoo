@@ -1,6 +1,6 @@
 {
   "name": "grunt-vizoo",
-  "description": "Adiciona o script do Vizoo e seus plugins inline em documento HTML",
+  "description": "Add Vizoo script and inline plugins into HTML document",
   "version": "1.0.0",
   "homepage": "https://vizoo.online",
   "author": {

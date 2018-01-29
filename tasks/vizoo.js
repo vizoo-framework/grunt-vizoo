@@ -70,10 +70,13 @@ module.exports = function(grunt) {
     function step(array,index,name,body,type,attr,plugins,src,dest){
 
 
-        if( index >= Object.keys(array).length -1 ){
+
+        if( index >= (Object.keys(array).length -1) ){
             var joins = masterJs+''+allJs+''+allCss;
             var content = grunt.file.read(src);
-            content = content.replace(/\<\!\-\-\s?grunt-vizoo\/\s?\-\-\>[^]+(.*)[^]+\<\!\-\-\s?\/grunt-vizoo\s?\-\-\>/mgi,joins);
+
+            content = content.replace(/\<\!\-\-\s?grunt-vizoo\/\s?\-\-\>[^]+(.*)\<\!\-\-\s?\/grunt-vizoo\s?\-\-\>/mgi,joins);
+
             grunt.file.write(dest, content);
             done();
         }

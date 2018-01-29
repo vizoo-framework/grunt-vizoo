@@ -43,21 +43,21 @@ module.exports = function(grunt) {
       var pluginArray = plugin.split('@');
       var plugin2Js = plugin;
       var plugin2Css = plugin;
+      var pluginName = plugin;
 
       if( pluginArray[0] == 'theme' ){
           plugin = 'theme';
           plugin2Js = 'theme';
           plugin2Css = pluginArray[1] + '/'+'theme';
-
       }
 
       vizooPluginsListCurl['vizoo-'+plugin+'-js'] = {
-        name:plugin,
+        name:pluginName,
         type:'js',
         src:'http://vizoo.online/core/v1/plugins/'+plugin+'/'+plugin2Js+'.js',
       }
       vizooPluginsListCurl['vizoo-'+plugin+'-css'] = {
-        name:plugin,
+        name:pluginName,
         type:'css',
         src:'http://vizoo.online/core/v1/plugins/'+plugin+'/'+plugin2Css+'.css',
       }

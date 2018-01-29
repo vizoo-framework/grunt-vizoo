@@ -22,9 +22,9 @@ module.exports = function(grunt) {
     var attr = value.attr;
     var src = value.src;
     var dest = value.dest;
-    
 
-    
+
+
     var vizooPluginsList = plugins;
     var vizooPluginsListCurl = {};
     var concatSourceJs = [];
@@ -39,43 +39,55 @@ module.exports = function(grunt) {
 
     for(key in vizooPluginsList){
       var plugin = vizooPluginsList[key];
-      
+
+      var pluginArray = plugin.split('@');
+      var plugin2Js = plugin;
+      var plugin2Css = plugin;
+
+      if( pluginArray[0] == 'theme' ){
+          plugin = 'theme';
+          plugin2Js = 'theme';
+          plugin2Css = pluginArray[1] + '/'+'theme';
+
+      }
+
       vizooPluginsListCurl['vizoo-'+plugin+'-js'] = {
         name:plugin,
         type:'js',
-        src:'http://vizoo.online/core/v1/plugins/'+plugin+'/'+plugin+'.js',        
+        src:'http://vizoo.online/core/v1/plugins/'+plugin+'/'+plugin2Js+'.js',
       }
       vizooPluginsListCurl['vizoo-'+plugin+'-css'] = {
         name:plugin,
         type:'css',
-        src:'http://vizoo.online/core/v1/plugins/'+plugin+'/'+plugin+'.css',        
+        src:'http://vizoo.online/core/v1/plugins/'+plugin+'/'+plugin2Css+'.css',
       }
-      
-      index++;      
+
+
+      index++;
     }
 
 
     function step(array,index,name,body,type,attr,plugins,src,dest){
-        
-        
-        if( index >= Object.keys(array).length -1 ){     
+
+
+        if( index >= Object.keys(array).length -1 ){
             var joins = masterJs+''+allJs+''+allCss;
-            var content = grunt.file.read(src);    
-            content = content.replace(/\<\!\-\-\s?grunt-vizoo\/\s?\-\-\>[^]+(.*)[^]+\<\!\-\-\s?\/grunt-vizoo\s?\-\-\>/mgi,joins);            
-            grunt.file.write(dest, content);             
-            done();            
+            var content = grunt.file.read(src);
+            content = content.replace(/\<\!\-\-\s?grunt-vizoo\/\s?\-\-\>[^]+(.*)[^]+\<\!\-\-\s?\/grunt-vizoo\s?\-\-\>/mgi,joins);
+            grunt.file.write(dest, content);
+            done();
         }
         if(type == 'js-master'){
             var attrString = JSON.stringify(attr);
             attrString = attrString.replace('{','');
-            attrString = attrString.replace('}','');        
+            attrString = attrString.replace('}','');
             masterJs = '<script type="text/javascript" data-vizoo-core data-vizoo-attr=\''+attrString+'\'>'+"\n"+body+"\n"+'</script>';
-           
+
         }
         if(type == 'js')
             allJs += '<script type="text/javascript" data-name="'+name+'">'+"\n"+body+"\n"+'</script>';
         if(type == 'css'){
-            // console.log(body+'---'+"\n\n\n"+type+'--'+name);    
+            // console.log(body+'---'+"\n\n\n"+type+'--'+name);
             allCss += '<style type="text/css" data-name="'+name+'">'+"\n"+body+"\n"+'</style>';
         }
     }
@@ -90,29 +102,29 @@ module.exports = function(grunt) {
     var type = vizooPluginsListCurl[key].type;
     var path = vizooPluginsListCurl[key].src;
 
-    
+
     (function(request,name,type,path,attr,plugins,src,dest){
 
         grunt.log.writeln('downloading Vizoo... '+name+' - '+type);
-        
+
         request.get(path,function(error,response,body){
-          if (!error && response.statusCode == 200) {               
+          if (!error && response.statusCode == 200) {
             step(vizooPluginsListCurl,index,name,body,type,attr,plugins,src,dest);
             index++;
           }else{
-            grunt.log.writeln('error on download: '+name);
+            grunt.log.writeln('error on download: '+name+' - '+path);
           }
 
-           
+
         });
 
 
     })(request,name,type,path,attr,plugins,src,dest);
 
-  
+
   }
 
-  
+
 
   });
 

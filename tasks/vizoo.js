@@ -77,12 +77,27 @@ module.exports = function(grunt) {
 
 
 
+
+
+        if(type == 'js-master'){
+            var attrString = JSON.stringify(attr);
+            attrString = attrString.replace('{','');
+            attrString = attrString.replace('}','');
+            masterJs = '<script type="text/javascript" data-vizoo-core data-vizoo-attr=\''+attrString+'\'>'+"\n"+body+"\n"+'</script>';
+
+        }
+        if(type == 'js')
+            allJs += '<script type="text/javascript" data-name="'+name+'">'+"\n"+body+"\n"+'</script>';
+        if(type == 'css'){
+            allCss += '<style type="text/css" data-name="'+name+'">'+"\n"+body+"\n"+'</style>';                    
+        }
+
+
         if( index >= (Object.keys(array).length -1) ){
             var joins = masterJs+''+allJs+''+allCss;
 
 
             if(typeof src == 'object'){
-
 
 
                 for(key in src){
@@ -94,6 +109,7 @@ module.exports = function(grunt) {
                     grunt.file.write(destination, content);
                 }
 
+
             }else{
                 var content = grunt.file.read(src);
                 content = content.replace(/\<\!\-\-\s?grunt-vizoo\/\s?\-\-\>[^]+(.*)\<\!\-\-\s?\/grunt-vizoo\s?\-\-\>/mgi,joins);
@@ -103,19 +119,6 @@ module.exports = function(grunt) {
 
 
             done();
-        }
-        if(type == 'js-master'){
-            var attrString = JSON.stringify(attr);
-            attrString = attrString.replace('{','');
-            attrString = attrString.replace('}','');
-            masterJs = '<script type="text/javascript" data-vizoo-core data-vizoo-attr=\''+attrString+'\'>'+"\n"+body+"\n"+'</script>';
-
-        }
-        if(type == 'js')
-            allJs += '<script type="text/javascript" data-name="'+name+'">'+"\n"+body+"\n"+'</script>';
-        if(type == 'css'){
-
-            allCss += '<style type="text/css" data-name="'+name+'">'+"\n"+body+"\n"+'</style>';
         }
     }
 
@@ -139,7 +142,7 @@ module.exports = function(grunt) {
       var path = vizooPluginsListCurl[index].src;
 
 
-        grunt.log.writeln(index+' : downloading Vizoo... '+name+' - '+type);
+        console.log(index+' : downloading Vizoo... '+name+' - '+type);
 
           request.get(path,function(error,response,body){
             if (!error && response.statusCode == 200) {
@@ -147,7 +150,7 @@ module.exports = function(grunt) {
               index++;
               downloadScript(downloadScript,vizooPluginsListCurl,index);
             }else{
-              grunt.log.writeln('error on download: '+name+' - '+path);
+              console.log('error on download: '+name+' - '+path);
             }
 
 

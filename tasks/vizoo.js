@@ -22,8 +22,10 @@ module.exports = function(grunt) {
     var attr = value.attr;
     var src = value.src;
     var dest = value.dest;
+    var source = value.source || 'http://vizoo.online/core/v1';
 
 
+    
 
     var vizooPluginsList = plugins;
     var vizooPluginsListCurl = {};
@@ -34,7 +36,7 @@ module.exports = function(grunt) {
     vizooPluginsListCurl[index] = {
         name:'core',
         type:'js-master',
-        src:'http://vizoo.online/core/v1/vizoo.js',
+        src: source + '/vizoo.js',
       }
 
     for(key in vizooPluginsList){
@@ -57,7 +59,7 @@ module.exports = function(grunt) {
       vizooPluginsListCurl[index] = {
         name:pluginName,
         type:'js',
-        src:'http://vizoo.online/core/v1/plugins/'+plugin+'/'+plugin2Js+'.js',
+        src: source + '/plugins/'+plugin+'/'+plugin2Js+'.js',
       }
 
       index++;
@@ -65,7 +67,7 @@ module.exports = function(grunt) {
       vizooPluginsListCurl[index] = {
         name:pluginName,
         type:'css',
-        src:'http://vizoo.online/core/v1/plugins/'+plugin+'/'+plugin2Css+'.css',
+        src: source + '/plugins/'+plugin+'/'+plugin2Css+'.css',
       }
 
 

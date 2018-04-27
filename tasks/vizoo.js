@@ -39,6 +39,8 @@ module.exports = function(grunt) {
         src: source + '/vizoo.js',
       }
 
+    var themename = "THEME-NAME";
+    
     for(key in vizooPluginsList){
 
       var plugin = vizooPluginsList[key];
@@ -47,10 +49,12 @@ module.exports = function(grunt) {
       var plugin2Js = plugin;
       var plugin2Css = plugin;
       var pluginName = plugin;
+      
 
       if( pluginArray[0] == 'theme' ){
           plugin = 'theme';
           plugin2Js = 'theme';
+          themename = pluginArray[1];
           plugin2Css = pluginArray[1] + '/'+'theme';
       }
 
@@ -118,6 +122,8 @@ module.exports = function(grunt) {
                 grunt.file.write(dest, content);
             }
 
+
+            console.log("\n\n"+'Attention: insert the attribute on tag HTML: data-vizoo-theme="'+themename+'" '+"\n\n");
 
 
             done();

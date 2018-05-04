@@ -1,7 +1,7 @@
 {
   "name": "grunt-vizoo",
   "description": "Add Vizoo script and inline plugins into HTML document",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "homepage": "https://vizoo.online",
   "author": {
     "name": "Wallace Rio",

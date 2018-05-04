@@ -22,7 +22,7 @@ module.exports = function(grunt) {
     var attr = value.attr;
     var src = value.src;
     var dest = value.dest;
-    var version = value.version;
+    var version = value.version || '0.0.1';
     var source = value.source || 'http://vizoo.online/core/'+version;
 
 
